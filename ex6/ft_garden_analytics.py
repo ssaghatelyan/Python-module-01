@@ -60,7 +60,7 @@ class Plant:
         return age > 365
 
     @classmethod
-    def anonymous(cls):
+    def anonymous(cls) -> "Plant":
         return cls("Unknown plant", 0.0, 0)
 
 
@@ -115,13 +115,15 @@ class Tree(Plant):
     def show(self) -> None:
         super().show()
         print(f"Trunk diameter: {round(self._trunk_diameter, 1)}cm")
-    
+
     def show_shade_stats(self) -> None:
         print(f"{self._shade_count} shade")
+
 
 def display_statics(plant: Plant) -> None:
     plant.show_stats()
     plant.show_shade_stats()
+
 
 if __name__ == "__main__":
     print("=== Garden statistics ===")
