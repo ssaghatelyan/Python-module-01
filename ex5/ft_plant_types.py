@@ -90,10 +90,10 @@ class Vegetable(Plant):
 
     def grow(self) -> None:
         super().grow()
-        self._nutritional_value += 1
 
     def age(self) -> None:
         super().age()
+        self._nutritional_value += 1
 
     def show(self) -> None:
         super().show()
@@ -105,7 +105,7 @@ if __name__ == "__main__":
     print("=== Garden Plant Types ===")
 
     print("\n=== Flower")
-    flower = Flower("Rose", 15, 10, "Red")
+    flower = Flower("Rose", 15, 10, "red")
     flower.show()
     print("[asking the rose to bloom]")
     flower.bloom()

@@ -4,6 +4,7 @@ class Plant:
             self._grow_calls = 0
             self._age_calls = 0
             self._show_calls = 0
+            self._shade_calls = 0
 
         def inc_grow(self) -> None:
             self._grow_calls += 1
@@ -13,6 +14,9 @@ class Plant:
 
         def inc_show(self) -> None:
             self._show_calls += 1
+
+        def inc_shade(self):
+            self._shade_calls += 1
 
         def display(self) -> None:
             print(f"Stats: {self._grow_calls} grow, "
@@ -33,7 +37,7 @@ class Plant:
         else:
             self._age = age
 
-        self._stats = Plant._Stats()
+        self._stats = self._Stats()
 
     def grow(self) -> None:
         self._height += 1.5
@@ -53,7 +57,7 @@ class Plant:
         self._stats.display()
 
     def show_shade_stats(self) -> None:
-        pass
+        print("0 shade")
 
     @staticmethod
     def older_than_year(age: int) -> bool:
@@ -105,7 +109,7 @@ class Tree(Plant):
         self._shade_count = 0
 
     def produce_shade(self) -> None:
-        self._shade_count += 1
+        self._stats.inc_shade()
         print(
             f"Tree {self._name} now produces a shade of "
             f"{round(self._height, 1)}cm long and "
@@ -117,7 +121,26 @@ class Tree(Plant):
         print(f"Trunk diameter: {round(self._trunk_diameter, 1)}cm")
 
     def show_shade_stats(self) -> None:
-        print(f"{self._shade_count} shade")
+        print(f"{self._stats._shade_calls} shade")
+
+class Vegetable(Plant):
+    def __init__(self, name: str, height: float,
+                 age: int, harvest_season: str) -> None:
+        super().__init__(name, height, age)
+        self._harvest_season = harvest_season
+        self._nutritional_value = 0
+
+    def grow(self) -> None:
+        super().grow()
+
+    def age(self) -> None:
+        super().age()
+        self._nutritional_value += 1
+
+    def show(self) -> None:
+        super().show()
+        print(f"Harvest season: {self._harvest_season}")
+        print(f"Nutritional value: {self._nutritional_value}")
 
 
 def display_statics(plant: Plant) -> None:
