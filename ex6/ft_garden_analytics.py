@@ -15,8 +15,11 @@ class Plant:
         def inc_show(self) -> None:
             self._show_calls += 1
 
-        def inc_shade(self):
+        def inc_shade(self) -> None:
             self._shade_calls += 1
+
+        def get_shade_calls(self) -> int:
+            return self._shade_calls
 
         def display(self) -> None:
             print(f"Stats: {self._grow_calls} grow, "
@@ -39,6 +42,28 @@ class Plant:
 
         self._stats = self._Stats()
 
+    def set_height(self, height: float) -> None:
+        if height < 0:
+            print(f"{self._name}: Error, height can't be negative")
+            print("Height update rejected")
+        else:
+            self._height = float(height)
+            print(f"Height updated: {self._height}cm")
+
+    def set_age(self, age: int) -> None:
+        if age < 0:
+            print(f"{self._name}: Error, age can't be negative")
+            print("Age update rejected")
+        else:
+            self._age = age
+            print(f"Age updated: {self._age} days old")
+
+    def get_height(self) -> float:
+        return self._height
+
+    def get_age(self) -> int:
+        return self._age
+
     def grow(self) -> None:
         self._height += 1.5
         self._stats.inc_grow()
@@ -57,7 +82,7 @@ class Plant:
         self._stats.display()
 
     def show_shade_stats(self) -> None:
-        print("0 shade")
+        pass
 
     @staticmethod
     def older_than_year(age: int) -> bool:
@@ -106,7 +131,6 @@ class Tree(Plant):
                  age: int, trunk_diameter: int) -> None:
         super().__init__(name, height, age)
         self._trunk_diameter = float(trunk_diameter)
-        self._shade_count = 0
 
     def produce_shade(self) -> None:
         self._stats.inc_shade()
@@ -121,7 +145,8 @@ class Tree(Plant):
         print(f"Trunk diameter: {round(self._trunk_diameter, 1)}cm")
 
     def show_shade_stats(self) -> None:
-        print(f"{self._stats._shade_calls} shade")
+        print(f"{self._stats.get_shade_calls()} shade")
+
 
 class Vegetable(Plant):
     def __init__(self, name: str, height: float,
